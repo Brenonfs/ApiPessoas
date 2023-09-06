@@ -15,7 +15,6 @@ app.get('/api/integration', async (req, res) => {
 		// Processar a resposta da API de usuários
 		const userData = response.data;
 
-		// Inserir os dados do usuário no banco de dados usando o Prisma
 		await prisma.user.createMany({
 			data: userData.map((user: any) => ({
 				name: user.name,

@@ -6,9 +6,8 @@ const peopleRoutes = Router();
 
 const peopleController = new PeopleController();
 
-// peopleRoutes.use(ensureAuthenticated);
 peopleRoutes.post('/', peopleController.create);
-peopleRoutes.get('/:id', peopleController.list);
+peopleRoutes.get('/:id', ensureAuthenticated, peopleController.list);
 peopleRoutes.delete('/:id', peopleController.delete);
 
 export { peopleRoutes };

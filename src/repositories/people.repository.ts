@@ -14,6 +14,12 @@ export class PeopleRepository {
 		});
 		return postExist;
 	}
+	async findByCpf(cpf: string) {
+		const postExist = await prisma.people.findUnique({
+			where: { cpf },
+		});
+		return postExist;
+	}
 	async deletePeople(id: number) {
 		const post = await prisma.people.delete({
 			where: {
