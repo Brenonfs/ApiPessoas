@@ -11,12 +11,11 @@ class CreateAuthService {
 		const userExist = await authRepository.findByName(name);
 
 		if (!userExist) {
-			throw new UnauthorizedError('Nome e/ou cpf e/ou dataNascimento incorreta');
+			throw new UnauthorizedError('Nome e/ou cpf incorreto 1');
 		}
-		const cpfMatched = cpf !== userExist.cpf;
-
+		const cpfMatched = cpf === userExist.cpf;
 		if (!cpfMatched) {
-			throw new UnauthorizedError('Nome e/ou cpf e/ou dataNascimento incorreta');
+			throw new UnauthorizedError('Nome e/ou cpf incorreto 2');
 		}
 		if (jwtConfig && jwtConfig.secret !== undefined) {
 			const { secret, expiresIn } = jwtConfig;

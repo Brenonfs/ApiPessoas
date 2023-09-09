@@ -8,9 +8,9 @@ export class PeopleRepository {
 		});
 		return people;
 	}
-	async findById(id: number) {
+	async findById(id: any) {
 		const postExist = await prisma.people.findUnique({
-			where: { id: Number(id) },
+			where: { id },
 		});
 		return postExist;
 	}
@@ -20,10 +20,10 @@ export class PeopleRepository {
 		});
 		return postExist;
 	}
-	async deletePeople(id: number) {
+	async deletePeople(id: any) {
 		const post = await prisma.people.delete({
 			where: {
-				id: Number(id),
+				id,
 			},
 		});
 		return post;

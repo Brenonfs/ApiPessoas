@@ -4,14 +4,13 @@ import { UnauthorizedError } from '../helpers/api-erros';
 import { PeopleRepository } from '../repositories/people.repository';
 
 class DeletePeopleService {
-	async execute(req: Request) {
-		const { id } = req.params;
+	async execute(id: any) {
 		const peopleRepository = new PeopleRepository();
-		const peopleExists = await peopleRepository.findById(Number(id));
+		const peopleExists = await peopleRepository.findById(id);
 		if (!peopleExists) {
 			throw new UnauthorizedError('Nenhuma pessoa foi encontrada.');
 		}
-		const people = await peopleRepository.deletePeople(Number(id));
+		const people = await peopleRepository.deletePeople(id);
 		return people;
 	}
 }

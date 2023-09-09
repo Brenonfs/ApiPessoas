@@ -5,6 +5,6 @@ const authRoutes = Router();
 
 const authSession = new CreateAuth();
 
-authRoutes.post('/', authSession.create);
+authRoutes.post('/login', authSession.create);
 
 export { authRoutes };

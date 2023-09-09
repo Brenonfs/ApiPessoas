@@ -3,14 +3,14 @@ import { Request } from 'express';
 import { UnauthorizedError } from '../helpers/api-erros';
 import { PeopleRepository } from '../repositories/people.repository';
 
-class ListPeopleService {
-	async execute(id: any) {
+class SearchPeopleService {
+	async execute(cpf: any) {
 		const peopleRepository = new PeopleRepository();
-		const peopleExists = await peopleRepository.findById(id);
+		const peopleExists = await peopleRepository.findByCpf(cpf);
 		if (!peopleExists) {
 			throw new UnauthorizedError('Nenhuma pessoa foi encontrada.');
 		}
 		return peopleExists;
 	}
 }
-export { ListPeopleService };
+export { SearchPeopleService };
