@@ -14,10 +14,10 @@ import { UnauthorizedError } from '../helpers/api-erros';
 // }
 const ensureAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
 	const authHeader = req.headers.authorization;
-	console.log(authHeader);
+
 	if (!authHeader) {
 		const { secret } = req.headers;
-		console.log(secret);
+
 		if (!secret) {
 			throw new UnauthorizedError('JWT Token não informado ');
 		} //

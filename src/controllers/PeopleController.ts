@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { UnauthorizedError } from '../helpers/api-erros';
+import { peopleCreateSchema } from '../schema/people';
 import { CreatePeopleService } from '../services/createPeople.service';
 import { DeletePeopleService } from '../services/deletePeople.service';
 import { ListPeopleService } from '../services/listPeople.service';
@@ -8,11 +9,14 @@ import { SearchPeopleService } from '../services/searchPeople.service';
 
 export class PeopleController {
 	async create(req: Request, res: Response) {
-		// ao deletar pessoa precisa deletar o usuário?
 		try {
-			const { name, cpf, dataNascimento } = req.body;
+			const validatedPeopleSchema = peopleCreateSchema.parse(req.body);
 			const createPeopleService = new CreatePeopleService();
-			const result = await createPeopleService.execute(name, cpf, dataNascimento);
+			const result = await createPeopleService.execute(
+				validatedPeopleSchema.name,
+				validatedPeopleSchema.cpf,
+				validatedPeopleSchema.dataNascimento,
+			);
 			if (typeof result === 'object' && 'id' in result) {
 				return res.json({
 					error: false,
@@ -63,7 +67,7 @@ export class PeopleController {
 	async search(req: Request, res: Response) {
 		try {
 			const cpf = req.query.cpf as string;
-			console.log(cpf);
+
 			const searchPeopleService = new SearchPeopleService();
 			const result = await searchPeopleService.execute(cpf);
 
